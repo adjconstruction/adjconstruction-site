@@ -1,2 +1,246 @@
-<h1> ADJ Construction <h1>
-<p> Under Construction </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Under Construction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #C0151F;
+      --red-dim: rgba(192, 21, 31, 0.18);
+      --black: #0A0A0A;
+      --off-white: #E8E8E8;
+      --muted: rgba(232, 232, 232, 0.45);
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--black);
+      color: var(--off-white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 100vh;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('hero.png');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.28) saturate(0.6);
+      transform: scale(1.04);
+      transition: transform 12s ease-out;
+    }
+
+    .hero__bg.loaded {
+      transform: scale(1);
+    }
+
+    /* dark vignette + red tint overlay */
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 30%, rgba(10,10,10,0.82) 100%),
+        linear-gradient(160deg, rgba(192,21,31,0.08) 0%, transparent 60%);
+    }
+
+    /* thin red top bar */
+    .hero__bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 780px;
+    }
+
+    /* eye-brow label */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.4rem;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--red);
+      opacity: 0.7;
+    }
+
+    /* big display headline */
+    .headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.2rem, 12vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: 0.03em;
+      color: var(--off-white);
+      margin-bottom: 0.15em;
+    }
+
+    .headline em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    /* sub-message */
+    .sub {
+      font-size: clamp(0.85rem, 1.6vw, 1rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-top: 1.6rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.75;
+    }
+
+
+    /* bottom meta bar */
+    .meta {
+      position: absolute;
+      bottom: 2rem;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .meta__dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+      opacity: 0.6;
+    }
+
+    .meta__text {
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(232,232,232,0.25);
+    }
+
+    /* subtle corner mark */
+    .corner {
+      position: absolute;
+      top: 1.6rem;
+      left: 2rem;
+      z-index: 2;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.16em;
+      color: rgba(232,232,232,0.18);
+    }
+
+    /* reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .hero__bg { transition: none; transform: scale(1); }
+    }
+
+    @media (max-width: 500px) {
+      .headline {
+        font-size: clamp(3.2rem, 18vw, 5rem);
+      }
+      .corner {
+        font-size: 0.85rem;
+        left: 1.2rem;
+        top: 1.2rem;
+      }
+      .meta {
+        bottom: 1.4rem;
+        gap: 1rem;
+      }
+      .hero__content {
+        padding: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero__bg" id="heroBg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__bar"></div>
+
+    <span class="corner">&#9632;&nbsp;ADJ Construction</span>
+
+    <div class="hero__content">
+      <p class="eyebrow">Fontana, CA</p>
+
+      <h1 class="headline">
+        Under<br /><em>Construction</em>
+      </h1>
+
+      <p class="sub">
+        ADJ Construction is building something worth the wait.
+        We'll be back soon — sharper, faster, and ready to serve Fontana and beyond.
+      </p>
+
+    </div>
+
+    <div class="meta">
+      <span class="meta__text">ADJ Construction</span>
+      <span class="meta__dot"></span>
+      <span class="meta__text">Fontana, CA</span>
+    </div>
+  </section>
+
+  <script>
+    const bg = document.getElementById('heroBg');
+    const img = new Image();
+    img.src = 'hero.png';
+    img.onload = () => bg.classList.add('loaded');
+  </script>
+
+</body>
+</html>
