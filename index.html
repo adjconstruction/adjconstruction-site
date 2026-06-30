@@ -46,25 +46,23 @@
       min-height: 100vh;
     }
 
-    .hero__bg {
+    /* Video background */
+    .hero__video {
       position: absolute;
       inset: 0;
-      background-image: url('hero.png');
-      background-size: cover;
-      background-position: center;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
       filter: brightness(0.28) saturate(0.6);
-      transform: scale(1.04);
-      transition: transform 12s ease-out;
-    }
-
-    .hero__bg.loaded {
-      transform: scale(1);
+      z-index: 0;
     }
 
     /* dark vignette + red tint overlay */
     .hero__overlay {
       position: absolute;
       inset: 0;
+      z-index: 1;
       background:
         radial-gradient(ellipse at center, transparent 30%, rgba(10,10,10,0.82) 100%),
         linear-gradient(160deg, rgba(192,21,31,0.08) 0%, transparent 60%);
@@ -77,6 +75,7 @@
       left: 0;
       right: 0;
       height: 3px;
+      z-index: 3;
       background: linear-gradient(90deg, transparent, var(--red), transparent);
     }
 
@@ -139,7 +138,6 @@
       line-height: 1.75;
     }
 
-
     /* bottom meta bar */
     .meta {
       position: absolute;
@@ -181,9 +179,11 @@
       color: rgba(232,232,232,0.18);
     }
 
-    /* reduced-motion */
+    /* reduced-motion: pause video, show poster */
     @media (prefers-reduced-motion: reduce) {
-      .hero__bg { transition: none; transform: scale(1); }
+      .hero__video {
+        animation: none;
+      }
     }
 
     @media (max-width: 500px) {
@@ -208,7 +208,19 @@
 <body>
 
   <section class="hero">
-    <div class="hero__bg" id="heroBg"></div>
+
+    <video
+      class="hero__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="hero.png"
+    >
+      <source src="hero.webm" type="video/webm">
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+
     <div class="hero__overlay"></div>
     <div class="hero__bar"></div>
 
@@ -218,7 +230,7 @@
       <p class="eyebrow">Fontana, CA</p>
 
       <h1 class="headline">
-        ADJ<br /><em>Under Construction</em>
+        Under<br /><em>Construction</em>
       </h1>
 
       <p class="sub">
@@ -234,13 +246,6 @@
       <span class="meta__text">Fontana, CA</span>
     </div>
   </section>
-
-  <script>
-    const bg = document.getElementById('heroBg');
-    const img = new Image();
-    img.src = 'hero.png';
-    img.onload = () => bg.classList.add('loaded');
-  </script>
 
 </body>
 </html>
